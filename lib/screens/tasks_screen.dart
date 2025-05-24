@@ -1,15 +1,12 @@
 import 'package:bloc_to_do_app/blocks/bloc_exports.dart';
 import 'package:bloc_to_do_app/models/tasks.dart';
+import 'package:bloc_to_do_app/screens/add_task_screen.dart';
 import 'package:bloc_to_do_app/widgets/tasks_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:techgrains/com/techgrains/view/tg_text.dart';
-import 'package:techgrains/com/techgrains/view/tg_view.dart';
 
 class TasksScreen extends StatelessWidget {
   TasksScreen({super.key});
-
-  TextEditingController taskController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,48 +38,7 @@ class TasksScreen extends StatelessWidget {
       context: context,
       builder: (context) {
         return SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: TGView.columnContainer(
-              padding: EdgeInsets.all(20),
-              children: [
-                TGView.emptySizedBox(height: 10),
-                TGText.withStyle("Add Task", TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                TGView.emptySizedBox(height: 20),
-                TextField(
-                  autofocus: true,
-                  controller: taskController,
-                  decoration: InputDecoration(border: const OutlineInputBorder(), labelText: 'Title', hintText: 'Enter title'),
-                ),
-                TGView.emptySizedBox(height: 20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(backgroundColor: Colors.red),
-                        child: TGText.labelLarge("Cancel", color: Colors.white),
-                      ),
-                    ),
-                    TGView.emptySizedBox(width: 10),
-                    Expanded(
-                      child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Colors.blue),
-                        onPressed: () {
-                          TGView.clearFocus(context);
-                          if (taskController.text.isEmpty) return;
-                          var task = Task(title: taskController.text);
-                          context.read<TasksBloc>().add(AddTaskEvent(task: task));
-                          Navigator.of(context).pop();
-                        },
-                        child: TGText.labelLarge("Add", color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          child: AddTaskScreen(),
         );
       },
     );

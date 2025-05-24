@@ -1,5 +1,7 @@
+import 'package:bloc_to_do_app/blocks/bloc_exports.dart';
 import 'package:bloc_to_do_app/models/tasks.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TasksList extends StatelessWidget {
   final List<Task> taskList;
@@ -17,7 +19,9 @@ class TasksList extends StatelessWidget {
             title: Text(task.title),
             trailing: Checkbox(
               value: task.isDone,
-              onChanged: null, // Disabled checkbox
+              onChanged: (value){
+                context.read<TasksBloc>().add(UpdateTaskEvent(task: task));
+              }, // Disabled checkbox
             ),
           );
         },
