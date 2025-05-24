@@ -21,8 +21,9 @@ class TasksList extends StatelessWidget {
               value: task.isDone,
               onChanged: (value){
                 context.read<TasksBloc>().add(UpdateTaskEvent(task: task));
-              }, // Disabled checkbox
+              },
             ),
+            onLongPress: () => context.read<TasksBloc>().add(DeleteTaskEvent(task: task)),
           );
         },
       ),

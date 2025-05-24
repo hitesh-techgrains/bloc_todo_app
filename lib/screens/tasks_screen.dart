@@ -10,6 +10,7 @@ class TasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("its rebuild");
     return BlocBuilder<TasksBloc, TasksState>(
       builder: (context, state) {
         List<Task> taskList = state.allTasks;
