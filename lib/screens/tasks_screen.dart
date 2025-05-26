@@ -1,6 +1,7 @@
 import 'package:bloc_to_do_app/blocks/bloc_exports.dart';
 import 'package:bloc_to_do_app/models/tasks.dart';
 import 'package:bloc_to_do_app/screens/add_task_screen.dart';
+import 'package:bloc_to_do_app/screens/my_drawer.dart';
 import 'package:bloc_to_do_app/widgets/tasks_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +18,7 @@ class TasksScreen extends StatelessWidget {
         List<Task> taskList = state.allTasks;
         return Scaffold(
           resizeToAvoidBottomInset: true,
+          drawer: MyDrawer(),
           appBar: AppBar(
             title: const Text('Tasks App'),
             actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))],

@@ -1,4 +1,5 @@
 import 'package:bloc_to_do_app/blocks/tasks/tasks_bloc.dart';
+import 'package:bloc_to_do_app/services/app_router.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,11 +14,12 @@ void main() async {
     storageDirectory: kIsWeb ? HydratedStorageDirectory.web : HydratedStorageDirectory((await getTemporaryDirectory()).path),
   );
 
-  runApp(const MyApp());
+  runApp(MyApp(appRouter: AppRouter()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final AppRouter appRouter;
+  MyApp({super.key, required this.appRouter});
 
   // This widget is the root of your application.
   @override
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Tasks App',
         theme: ThemeData(primarySwatch: Colors.blue),
         home: TasksScreen(),
+        onGenerateRoute: appRouter.onGenerateRoute,
       ),
     );
   }
