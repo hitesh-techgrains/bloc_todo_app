@@ -11,11 +11,12 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     on<AddTaskEvent>(_onAddTask);
     on<UpdateTaskEvent>(_onUpdateTask);
     on<DeleteTaskEvent>(_onDeleteTask);
+    on<RemoveTaskEvent>(_onRemoveTask);
   }
 
   void _onAddTask(AddTaskEvent event, Emitter<TasksState> emit) {
     final state = this.state;
-    emit(TasksState(allTasks: List.from(state.allTasks)..add(event.task)));
+    emit(TasksState(allTasks: List.from(state.allTasks)..add(event.task), removedTasks: state.removedTasks));
   }
 
   void _onUpdateTask(UpdateTaskEvent event, Emitter<TasksState> emit) {
@@ -25,12 +26,22 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
 
     List<Task> allTasks = List.from(state.allTasks)..remove(task);
     task.isDone == false ? allTasks.insert(index, task.copyWith(isDone: true)) : allTasks.insert(index, task.copyWith(isDone: false));
-    emit(TasksState(allTasks: allTasks));
+    emit(TasksState(allTasks: allTasks, removedTasks: state.removedTasks));
   }
 
   void _onDeleteTask(DeleteTaskEvent event, Emitter<TasksState> emit) {
     final state = this.state;
-    emit(TasksState(allTasks: List.from(state.allTasks)..remove(event.task)));
+    emit(TasksState(allTasks: state.allTasks, removedTasks: List.from(state.removedTasks)..remove(event.task)));
+  }
+
+  void _onRemoveTask(RemoveTaskEvent event, Emitter<TasksState> emit) {
+    final state = this.state;
+    emit(
+      TasksState(
+        allTasks: List.from(state.allTasks)..remove(event.task),
+        removedTasks: List.from(state.removedTasks)..add(event.task.copyWith(isDeleted: true)),
+      ),
+    );
   }
 
   @override

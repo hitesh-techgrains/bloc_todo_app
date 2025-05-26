@@ -9,6 +9,14 @@ class ListTileWidget extends StatelessWidget {
 
   final Task task;
 
+  void _removeOrDeleteTask(BuildContext context, Task task) {
+    if (task.isDeleted!) {
+      context.read<TasksBloc>().add(DeleteTaskEvent(task: task));
+    } else {
+      context.read<TasksBloc>().add(RemoveTaskEvent(task: task));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -16,10 +24,10 @@ class ListTileWidget extends StatelessWidget {
       trailing: Checkbox(
         value: task.isDone,
         onChanged: (value) {
-          context.read<TasksBloc>().add(UpdateTaskEvent(task: task));
+          task.isDeleted! == false ? context.read<TasksBloc>().add(UpdateTaskEvent(task: task)) : null;
         },
       ),
-      onLongPress: () => context.read<TasksBloc>().add(DeleteTaskEvent(task: task)),
+      onLongPress: () => _removeOrDeleteTask(context, task),
     );
   }
 }
