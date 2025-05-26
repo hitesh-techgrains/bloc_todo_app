@@ -1,5 +1,6 @@
 import 'package:bloc_to_do_app/blocks/switch/switch_bloc.dart';
 import 'package:bloc_to_do_app/blocks/tasks/tasks_bloc.dart';
+import 'package:bloc_to_do_app/screens/tabs_screen.dart';
 import 'package:bloc_to_do_app/services/app_router.dart';
 import 'package:bloc_to_do_app/services/app_theme.dart';
 import 'package:flutter/foundation.dart';
@@ -7,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-
-import 'screens/tasks_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +36,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Flutter Tasks App',
             theme: state.isSwitched ? AppThemes.appThemeData[AppTheme.darkTheme] : AppThemes.appThemeData[AppTheme.lightTheme],
-            home: TasksScreen(),
+            home: TabsScreen(),
             onGenerateRoute: appRouter.onGenerateRoute,
           );
         },

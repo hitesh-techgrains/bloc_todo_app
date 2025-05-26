@@ -22,7 +22,7 @@ class MyDrawer extends StatelessWidget {
               return ListTile(
                 leading: Icon(Icons.folder_special_outlined),
                 title: Text('My Tasks'),
-                trailing: Text(state.allTasks.length.toString(), style: TextStyle(fontWeight: FontWeight.bold)),
+                trailing: Text("${state.pendingTasks.length}|${state.completedTasks.length}", style: TextStyle(fontWeight: FontWeight.bold)),
                 onTap: () {
                   Navigator.pushReplacementNamed(context, AppRouteName.taskList);
                 },
