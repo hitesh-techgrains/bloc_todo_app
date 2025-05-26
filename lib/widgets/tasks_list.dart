@@ -1,8 +1,6 @@
-import 'package:bloc_to_do_app/blocks/bloc_exports.dart';
 import 'package:bloc_to_do_app/models/tasks.dart';
 import 'package:bloc_to_do_app/widgets/list_tile_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TasksList extends StatelessWidget {
   final List<Task> taskList;
