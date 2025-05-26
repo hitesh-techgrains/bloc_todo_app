@@ -4,13 +4,14 @@ import 'package:bloc_to_do_app/screens/add_task_screen.dart';
 import 'package:bloc_to_do_app/widgets/tasks_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techgrains/com/techgrains/common/tg_log.dart';
 
 class TasksScreen extends StatelessWidget {
-  TasksScreen({super.key});
+  const TasksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    print("its rebuild");
+    TGLog.d("its rebuild");
     return BlocBuilder<TasksBloc, TasksState>(
       builder: (context, state) {
         List<Task> taskList = state.allTasks;
@@ -38,9 +39,7 @@ class TasksScreen extends StatelessWidget {
       useSafeArea: true,
       context: context,
       builder: (context) {
-        return SingleChildScrollView(
-          child: AddTaskScreen(),
-        );
+        return SingleChildScrollView(child: AddTaskScreen());
       },
     );
   }

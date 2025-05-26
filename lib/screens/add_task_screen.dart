@@ -1,6 +1,8 @@
 import 'package:bloc_to_do_app/models/tasks.dart';
+import 'package:bloc_to_do_app/services/guid_gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techgrains/com/techgrains/common/tg_log.dart';
 import 'package:techgrains/com/techgrains/view/tg_text.dart';
 import 'package:techgrains/com/techgrains/view/tg_view.dart';
 
@@ -13,7 +15,6 @@ class AddTaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: TGView.columnContainer(
@@ -41,10 +42,10 @@ class AddTaskScreen extends StatelessWidget {
               Expanded(
                 child: TextButton(
                   onPressed: () {
-                    print("onPressed");
+                    TGLog.d("onPressed");
                     TGView.clearFocus(context);
                     if (taskController.text.isEmpty) return;
-                    final task = Task(title: taskController.text);
+                    final task = Task(title: taskController.text, id: GUIDGen.generate());
                     context.read<TasksBloc>().add(AddTaskEvent(task: task));
                     Navigator.of(context).pop();
                   },

@@ -7,4 +7,12 @@ class TasksState extends Equatable {
 
   @override
   List<Object> get props => [allTasks];
+
+  Map<String, dynamic> toJson() {
+    return {'allTasks': allTasks.map((task) => task.toMap()).toList()};
+  }
+
+  factory TasksState.fromJson(Map<String, dynamic> map) {
+    return TasksState(allTasks: List<Task>.from(map['allTasks']?.map((task) => Task.fromMap(task)) ?? []));
+  }
 }
