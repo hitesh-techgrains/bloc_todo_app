@@ -20,7 +20,11 @@ class ListTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(task.title, style: TextStyle(decoration: task.isDone! ? TextDecoration.lineThrough : TextDecoration.none)),
+      title: Text(
+        overflow: TextOverflow.ellipsis,
+        task.title,
+        style: TextStyle(decoration: task.isDone! ? TextDecoration.lineThrough : TextDecoration.none, fontWeight: FontWeight.w500),
+      ),
       trailing: Checkbox(
         value: task.isDone,
         onChanged: (value) {

@@ -10,6 +10,7 @@ import '../blocks/tasks/tasks_bloc.dart';
 
 class AddTaskScreen extends StatelessWidget {
   TextEditingController taskController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   AddTaskScreen({super.key});
 
@@ -29,6 +30,14 @@ class AddTaskScreen extends StatelessWidget {
             decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Title', hintText: 'Enter title'),
           ),
           TGView.emptySizedBox(height: 20),
+          TextField(
+            autofocus: true,
+            controller: descriptionController,
+            minLines: 3,
+            maxLines: 5,
+            decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Description', hintText: 'Enter description'),
+          ),
+          TGView.emptySizedBox(height: 20),
           Row(
             children: [
               Expanded(
@@ -44,8 +53,7 @@ class AddTaskScreen extends StatelessWidget {
                   onPressed: () {
                     TGLog.d("onPressed");
                     TGView.clearFocus(context);
-                    if (taskController.text.isEmpty) return;
-                    final task = Task(title: taskController.text, id: GUIDGen.generate());
+                    final task = Task(title: taskController.text, description: descriptionController.text, id: GUIDGen.generate());
                     context.read<TasksBloc>().add(AddTaskEvent(task: task));
                     Navigator.of(context).pop();
                   },
