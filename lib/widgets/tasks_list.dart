@@ -1,5 +1,5 @@
 import 'package:bloc_to_do_app/models/tasks.dart';
-import 'package:bloc_to_do_app/widgets/list_tile_widget.dart';
+import 'package:bloc_to_do_app/widgets/task_tile_widget.dart';
 import 'package:flutter/material.dart';
 
 class TasksList extends StatelessWidget {
@@ -16,7 +16,7 @@ class TasksList extends StatelessWidget {
             return ExpansionPanelRadio(
               value: task.id,
               headerBuilder: (context, isExpanded) {
-                return ListTileWidget(task: task);
+                return TaskTileWidget(task: task);
               },
               body: Align(
                 alignment: Alignment.centerLeft,

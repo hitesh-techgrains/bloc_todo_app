@@ -8,11 +8,9 @@ class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRouteName.taskList:
-        return MaterialPageRoute(builder: (_) => const PendingTasksScreen());
+        return MaterialPageRoute(builder: (_) => const TabsScreen());
       case AppRouteName.recycleBin:
         return MaterialPageRoute(builder: (_) => const RecycleBinScreen());
-      case AppRouteName.tabs:
-        return MaterialPageRoute(builder: (_) => TabsScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(body: Center(child: Text('No route defined for ${settings.name}'))),

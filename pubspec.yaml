@@ -39,6 +39,7 @@ dependencies:
   techgrains: ^1.6.4
   hydrated_bloc: ^10.0.0
   path_provider: ^2.1.5
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:

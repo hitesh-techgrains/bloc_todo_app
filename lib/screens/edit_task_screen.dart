@@ -8,21 +8,23 @@ import 'package:techgrains/com/techgrains/view/tg_view.dart';
 
 import '../blocks/tasks/tasks_bloc.dart';
 
-class AddTaskScreen extends StatelessWidget {
-  TextEditingController taskController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+class EditTaskScreen extends StatelessWidget {
+  final Task oldTask;
 
-  AddTaskScreen({super.key});
+  EditTaskScreen({super.key, required this.oldTask});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController taskController = TextEditingController(text: oldTask.title);
+    TextEditingController descriptionController = TextEditingController(text: oldTask.description);
+
     return Container(
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: TGView.columnContainer(
         padding: const EdgeInsets.all(20),
         children: [
           TGView.emptySizedBox(height: 10),
-          TGText.withStyle("Add Task", const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          TGText.withStyle("Edit Task", const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           TGView.emptySizedBox(height: 20),
           TextField(
             autofocus: true,
@@ -53,12 +55,19 @@ class AddTaskScreen extends StatelessWidget {
                   onPressed: () {
                     TGLog.d("onPressed");
                     TGView.clearFocus(context);
-                    final task = Task(title: taskController.text, description: descriptionController.text, id: GUIDGen.generate(), date: DateTime.now().toString());
-                    context.read<TasksBloc>().add(AddTaskEvent(task: task));
+                    final editedTask = Task(
+                      title: taskController.text,
+                      description: descriptionController.text,
+                      id: GUIDGen.generate(),
+                      isDone: false,
+                      date: oldTask.date,
+                      isFavorite: oldTask.isFavorite,
+                    );
+                    context.read<TasksBloc>().add(EditTaskEvent(newTask: editedTask, oldTask: oldTask));
                     Navigator.of(context).pop();
                   },
                   style: TextButton.styleFrom(backgroundColor: Colors.blue),
-                  child: TGText.labelLarge("Add", color: Colors.white),
+                  child: TGText.labelLarge("Save", color: Colors.white),
                 ),
               ),
             ],
